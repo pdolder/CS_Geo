@@ -27,15 +27,14 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
 
   Version = "VAST_v1_8_0"
   Method = c("Grid", "Mesh")[2]
-  grid_size_km = 50
+  grid_size_km = 50 
   n_x = c(100, 250, 500, 1000, 2000)[1] # Number of stations
-  n_x <- 5
-  FieldConfig = c("Omega1"=3, "Epsilon1"=3, "Omega2"=3, "Epsilon2"=3) # 1=Presence-absence; 2=Density given presence; #Epsilon=Spatio-temporal; #Omega=Spatial
+  FieldConfig = c("Omega1"=6, "Epsilon1"=6, "Omega2"=6, "Epsilon2"=6) # 1=Presence-absence; 2=Density given presence; #Epsilon=Spatio-temporal; #Omega=Spatial
   RhoConfig = c("Beta1"=0, "Beta2"=0, "Epsilon1"=0, "Epsilon2"=0) # Structure for beta or epsilon over time: 0=None (default); 1=WhiteNoise; 2=RandomWalk; 3=Constant
-  VesselConfig = c("Vessel"=0, "VesselYear"=0)
+  VesselConfig = c("Vessel"=0, "VesselYear"=1)
   ObsModel = c(2,0)  # 0=normal (log-link); 1=lognormal; 2=gamma; 4=ZANB; 5=ZINB; 11=lognormal-mixture; 12=gamma-mixture
   Kmeans_Config = list( "randomseed"=1, "nstart"=100, "iter.max"=1e3 )     # Samples: Do K-means on trawl locs; Domain: Do K-means on extrapolation grid
-  BiasCorr = FALSE
+  BiasCorr = FALSE 
 
   # Determine region
   Region = "Celtic_Sea"
@@ -66,39 +65,51 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
   DF2 <- DF
 
   ac <- as.character
-  DF <- data.frame(Survey = c(DF2$Ship,        ac(FSS$fldSeriesName)),
-		   Year   = c(DF2$Year,        ac(FSS$Year)),
-		   Lat    = c(DF2$HaulLatMid,  FSS$HaulLatMid),
-		   Lon    = c(DF2$HaulLonMid,  FSS$HaulLonMid),
-		   TowDur = c(DF2$HaulDur,     FSS$fldTowDuration),
-		   spp    = c(DF2$SpeciesName, ac(FSS$fldScientificName)),
-		   Kg     = c(DF2$Kg,          FSS$Kg))
+  DF <- data.frame(Survey        = c(DF2$Ship,        ac(FSS$fldSeriesName)),
+		   Year          = c(DF2$Year,        ac(FSS$Year)),
+		   Station       = c(DF2$StNo,        FSS$fldCruiseStationNumber),
+		   Lat           = c(DF2$HaulLatMid,  FSS$HaulLatMid),
+		   Lon           = c(DF2$HaulLonMid,  FSS$HaulLonMid),
+		   AreaSwept_km2 = c(DF2$SweptArea,   FSS$SweptArea),
+		   spp           = c(DF2$SpeciesName, ac(FSS$fldScientificName)),
+		   Kg            = c(DF2$Kg,          FSS$Kg))
 
  table(DF$Survey, DF$Year)		   
 
- sort(unique(DF$spp))
+ sort(unique(DF$spp)) 
 
   DF <- DF[(DF$spp %in% c('GADUS MORHUA',
 			  'MELANOGRAMMUS AEGLEFINUS',
-			  'MERLANGIUS MERLANGUS')),]
+			  'MERLANGIUS MERLANGUS',
+			  'MERLUCCIUS MERLUCCIUS',
+			  'LOPHIUS PISCATORIUS',
+			  'LEPIDORHOMBUS WHIFFIAGONIS')),]
+  ## Add missing zeros
+  DF <- reshape2::dcast(DF, Survey + Year + Station + Lat + Lon + AreaSwept_km2 ~ spp, value.var = 'Kg', fill = 0)
+  DF <- reshape2::melt(DF, id = c('Survey','Year','Station','Lat','Lon','AreaSwept_km2'), value.name = 'Kg')
+  colnames(DF)[7] <- 'spp'
 
   DF$SpeciesName <- factor(DF$spp) # drop empty factors
   DF$Ship        <- as.factor(DF$Survey)
   DF$Year        <- as.factor(DF$Year)
+
+  # Remove some surveys
+  # DF <- DF[DF$Survey %in% c('CEXP','THA2','WCGFS','Q1SWIBTS','Q1SWBEAM'),]
+
 
 
   an <- as.numeric
   Data_Geostat = cbind("spp"=DF[,"SpeciesName"], 
 		       "Year"=DF[,"Year"], 
 		       "Catch_KG"=DF[,"Kg"], 
-		       "AreaSwept_km2"=DF[,'TowDur'], 
+		       "AreaSwept_km2"=DF[,'AreaSwept_km2'], 
 		       "Vessel"= DF[,'Ship'] ,
 		       "Lat"=DF[,"Lat"], 
 		       "Lon"=DF[,"Lon"] )
   save(Data_Geostat, file=paste0(DateFile,"Data_Geostat.RData"))
 
   # Get extrapolation data
-  Extrapolation_List = SpatialDeltaGLMM::Prepare_Extrapolation_Data_Fn( Region=Region, strata.limits=strata.limits, observations_LL=Data_Geostat[,c('Lat','Lon')])
+  Extrapolation_List = SpatialDeltaGLMM::Prepare_Extrapolation_Data_Fn( Region=Region, strata.limits=strata.limits, observations_LL=Data_Geostat[,c('Lat','Lon')], maximum_distance_from_sample = 15)
 
   # Calculate spatial information for SPDE mesh, strata areas, and AR1 process
   Spatial_List = SpatialDeltaGLMM::Spatial_Information_Fn( grid_size_km=grid_size_km, n_x=n_x, Method=Method, Lon=Data_Geostat[,'Lon'], Lat=Data_Geostat[,'Lat'], Extrapolation_List=Extrapolation_List, randomseed=Kmeans_Config[["randomseed"]], nstart=Kmeans_Config[["nstart"]], iter.max=Kmeans_Config[["iter.max"]], DirPath=DateFile )
@@ -122,12 +133,16 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
   Report = Obj$report()
 
   # Save stuff
-  Save = list("Opt"=Opt, "Report"=Report, "ParHat"=Obj$env$parList(Opt$par), "TmbData"=TmbData)
+Save = list("Opt"=Opt, "Report"=Report, "ParHat"=Obj$env$parList(Opt$par), "TmbData"=TmbData)
   save(Save, file=paste0(DateFile,"Save.RData"))
 
 ################
 # Make diagnostic plots
 ################
+
+  Year_Set = seq(min(an(as.character(DF[,'Year']))),max(an(as.character(DF[,'Year']))))
+  Years2Include = which(Year_Set %in% sort(unique(an(as.character(DF[,'Year'])))))
+
 
   # Plot Anisotropy  
   SpatialDeltaGLMM::PlotAniso_Fn( FileName=paste0(DateFile,"Aniso.png"), Report=Report, TmbData=TmbData )
@@ -139,24 +154,24 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
   Plot_Overdispersion( filename1=paste0(DateDir,"Overdispersion"), filename2=paste0(DateDir,"Overdispersion--panel"), Data=TmbData, ParHat=ParHat, Report=Report, ControlList1=list("Width"=5, "Height"=10, "Res"=200, "Units"='in'), ControlList2=list("Width"=TmbData$n_c, "Height"=TmbData$n_c, "Res"=200, "Units"='in') )
 
   # Plot index
-  SpatialDeltaGLMM::PlotIndex_Fn( DirName=DateFile, TmbData=TmbData, Sdreport=Opt$SD, Year_Set=sort(unique(Data_Geostat[,'Year'])), strata_names=strata.limits[,1], category_names=levels(DF[,'SpeciesName']), use_biascorr=TRUE)
+  SpatialDeltaGLMM::PlotIndex_Fn( DirName=DateFile, TmbData=TmbData, Sdreport=Opt$SD, Year_Set=seq(min(an(as.character(DF[,'Year']))),max(an(as.character(DF[,'Year'])))), strata_names=strata.limits[,1], category_names=levels(DF[,'SpeciesName']), use_biascorr=TRUE, cex = 0.3)
 
-
-## Taken from single example
-# Load up the Save data first 
-TmbData <- Save$TmbData
-Report <- Save$Report
 
  # Positive catch rate Q-Q plot
   Q = SpatialDeltaGLMM::QQ_Fn( TmbData=TmbData, Report=Report, FileName_PP=paste0(DateFile,"Posterior_Predictive.jpg"), FileName_Phist=paste0(DateFile,"Posterior_Predictive-Histogram.jpg"), FileName_QQ=paste0(DateFile,"Q-Q_plot.jpg"), FileName_Qhist=paste0(DateFile,"Q-Q_hist.jpg"))
 
  # Plot surface - this is for all spp
-  Year_Set = seq(min(an(as.character(DF[,'Year']))),max(an(as.character(DF[,'Year']))))
-  Years2Include = which(Year_Set %in% sort(unique(an(as.character(DF[,'Year'])))))
-  Dim = c( "Nrow"=ceiling(sqrt(length(Years2Include))), "Ncol"=ceiling(length(Years2Include)/ceiling(sqrt(length(Years2Include)))) )
-  par( mfrow=Dim )
+  Dim = c( "Nrow"=ceiling(sqrt(length(Years2Include))), "Ncol"=ceiling(length(Years2Include)/ceiling(sqrt(length(Years2Include)))))
   MapDetails_List = SpatialDeltaGLMM::MapDetails_Fn( "Region"=Region, "NN_Extrap"=Spatial_List$PolygonList$NN_Extrap, "Extrapolation_List"=Extrapolation_List )
-  SpatialDeltaGLMM::PlotResultsOnMap_Fn(plot_set=3, MappingDetails=MapDetails_List[["MappingDetails"]], Report=list("D_xt"=Report$D_xct[,1,]), PlotDF=MapDetails_List[["PlotDF"]], MapSizeRatio=MapDetails_List[["MapSizeRatio"]], Xlim=MapDetails_List[["Xlim"]], Ylim=MapDetails_List[["Ylim"]], FileName=paste0(DateFile,"Field_"), Year_Set=Year_Set, Years2Include=Years2Include, Rotate=MapDetails_List[["Rotate"]], mfrow=Dim, mar=c(0,0,2,0), oma=c(3.5,3.5,0,0), Cex=MapDetails_List[["Cex"]], cex=1.8, add = FALSE, category_names = levels(DF[,'SpeciesName']))
+SpatialDeltaGLMM::PlotResultsOnMap_Fn(plot_set=1:3, MappingDetails=MapDetails_List[["MappingDetails"]], Report=Report, PlotDF=MapDetails_List[["PlotDF"]], MapSizeRatio=MapDetails_List[["MapSizeRatio"]], Xlim=MapDetails_List[["Xlim"]], Ylim=MapDetails_List[["Ylim"]], FileName=paste0(DateFile,"Field_"), Year_Set=Year_Set, Years2Include=Years2Include, Rotate=MapDetails_List[["Rotate"]], category_names=levels(DF[,'SpeciesName']), mfrow=Dim, mar=c(0,0,2,0), oma=c(3.5,3.5,0,0), Cex=MapDetails_List[["Cex"]], cex=1.8, Legend=MapDetails_List[["Legend"]])
 
+SpatialDeltaGLMM::Plot_data_and_knots(Data_Extrap = Spatial_List$NN_Extrap, 
+				      Extrap_Area_km2 = Spatial_List$a_xl, 
+				      loc_x = Spatial_List$loc_x,
+				      Spatial_List$loc_x, 
+				      Data_Geostat = Data_Geostat,
+				      Plot_name = 'Data_and_knots.png',
+				      Data_name = 'Data_by_year.png')
 
+#### END ###
 

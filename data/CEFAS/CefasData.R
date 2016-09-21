@@ -141,16 +141,87 @@ FSS$HaulLonMid <- (an(FSS$fldShotLonDecimalDegrees) + an(FSS$fldHaulLonDecimalDe
 # Only species with valid weights
 FSS <- FSS[!is.na(FSS$Wt),]
 
-# Aggregate
-FSS <- group_by(FSS, fldSeriesName, Year, fldPrimeStation, fldCruiseStationNumber, HaulLatMid, HaulLonMid, fldTowDuration, fldScientificName) %>%
-	summarise(Kg = sum(Wt)) %>% as.data.frame()
 
-FSS <- FSS[c('fldSeriesName','Year','fldPrimeStation','fldCruiseStationNumber','HaulLatMid','HaulLonMid','fldTowDuration', 'fldScientificName','Kg')]
+## Calculate the swept area per gear
+## for beam trawls its easy, for otter trawls need to include the doorspread
+## for effective swept area
+
+## Add distances to the FSS file
+
+FSS$Dist <- mapply(gcd.hf, long1 = deg2rad(FSS$fldShotLonDecimalDegrees),
+       	         lat1  = deg2rad(FSS$fldShotLatDecimalDegrees),
+	         long2 = deg2rad(FSS$fldHaulLonDecimalDegrees),
+	         lat2  = deg2rad(FSS$fldHaulLatDecimalDegrees))
+
+Surveys <- unique(FSS$fldGearDescription)
+
+## No details for otter trawl deployment, so use the standard 87m doorspread
+FSS$GearWidth <- ifelse(FSS$fldGearDescription == Surveys[1], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[2], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[3], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[4], 87, ifelse(
+			FSS$fldGearDescription == Surveys[5], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[6], 87, ifelse(
+			FSS$fldGearDescription == Surveys[7], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[8], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[9], 4,  ifelse(
+			FSS$fldGearDescription == Surveys[10], 4, ifelse(
+			FSS$fldGearDescription == Surveys[11], 87,ifelse(
+			FSS$fldGearDescription == Surveys[12], 87,ifelse(
+			FSS$fldGearDescription == Surveys[13], 87,ifelse(
+			FSS$fldGearDescription == Surveys[14], 87,ifelse(
+			FSS$fldGearDescription == Surveys[15], 87,ifelse(
+			FSS$fldGearDescription == Surveys[16], 87,ifelse(
+			FSS$fldGearDescription == Surveys[17], 3, ifelse(
+			FSS$fldGearDescription == Surveys[18], 87,ifelse(
+			FSS$fldGearDescription == Surveys[19], 87,ifelse(
+			FSS$fldGearDescription == Surveys[20], 87,ifelse(
+			FSS$fldGearDescription == Surveys[21], 87, ifelse(
+			FSS$fldGearDescription == Surveys[22], 2, ifelse(
+			FSS$fldGearDescription == Surveys[23], NA,ifelse(
+			FSS$fldGearDescription == Surveys[24], NA,ifelse(
+			FSS$fldGearDescription == Surveys[25], NA,ifelse(
+			FSS$fldGearDescription == Surveys[26], 2.5, ifelse(
+			FSS$fldGearDescription == Surveys[27], 87,  ifelse(
+			FSS$fldGearDescription == Surveys[28], 87,  ifelse(
+			FSS$fldGearDescription == Surveys[29], 3,   ifelse(
+			FSS$fldGearDescription == Surveys[30], 3,NA))))))))))))))))))))))))))))))
+
+FSS$SweptArea <- FSS$Dist * (FSS$GearWidth / 1000)
+
+plot(FSS$SweptArea ~ FSS$fldSeriesName) 
+
+## Adjust swept area for gear efficiencies, after Piet et al for roundfish:
+
+# BT: 0.19
+# OT: 0.22 - 0.54 (Juv, ad). 0.38
+
+FSS <- FSS[!is.na(FSS$GearWidth),]
+
+FSS$SweptAreaAdjFac <- sapply(FSS$GearWidth, function(x) {
+	       if(x %in% c(2.5, 3, 4))  return(0.19) 
+	       if(x == 87)  return(0.38)    
+	       else return(NA)
+		 })
+
+FSS$SweptAreaAdj <- FSS$SweptArea * FSS$SweptAreaAdjFac
+
+plot(FSS$SweptAreaAdj ~ FSS$fldSeriesName)
+
+# Aggregate
+FSS <- group_by(FSS, fldSeriesName, Year, fldPrimeStation, fldCruiseStationNumber, HaulLatMid, HaulLonMid, fldTowDuration, SweptArea, SweptAreaAdj, fldScientificName) %>% summarise(Kg = sum(Wt)) %>% as.data.frame()
+
+FSS <- FSS[c('fldSeriesName','Year','fldPrimeStation','fldCruiseStationNumber','HaulLatMid','HaulLonMid','fldTowDuration', 'SweptArea', 'SweptAreaAdj' ,'fldScientificName','Kg')]
 
 ## Trim to only keep data within core Celtic Sea
 
 FSS <- filter(FSS, HaulLonMid > -12 &  HaulLonMid < -2) # remove extreme Lons
 FSS <- filter(FSS, HaulLatMid >  48 &  HaulLatMid < 54) # remove extreme Lats
+
+plot(FSS$SweptAreaAdj ~ FSS$fldSeriesName)
+boxplot(FSS$SweptAreaAdj ~ FSS$Year)
+
+
 
 save(FSS, file = file.path('..','CelticSurvey2Formatted.RData'))
 
