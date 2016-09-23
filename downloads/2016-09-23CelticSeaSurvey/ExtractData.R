@@ -120,15 +120,21 @@ print(ggplot(Index, aes(x = Year, y = scaled)) +
 facet_wrap(~Category, scale = 'free_y', ncol = 1) + 	expand_limits(y = 0) +
 geom_line(data = CS, aes(x = Year, y = scaled), col = 'blue') +
 geom_ribbon(data = CS, aes(x = Year, ymin = scaled - scaled * scaledMult, 
-			   ymax = scaled + scaled * scaledMult), alpha = 0.5, fill = 'blue'))
+			   ymax = scaled + scaled * scaledMult), alpha = 0.5, fill = 'blue') +
+      ggtitle('Blue = Assessment, black = VAST estimates'))
+ggsave('RealativeIndexVRelativeAssessSSB.png')
 
 
 Combined <- Index
 Combined$AssessPop <- CS$scaled[match(paste(Combined$Category, Combined$Year),
 				      paste(CS$Category, CS$Year))]
 
-ggplot(Combined, aes(x = AssessPop, y = scaled)) + geom_point() +
+print(ggplot(Combined, aes(x = AssessPop, y = scaled)) + geom_point() +
 	facet_wrap(~Category) + geom_smooth(method = 'lm') +
-	geom_abline(intercept = 0, slope = 1, col = 'red')
+	geom_abline(intercept = 0, slope = 1, col = 'red') + 
+	ggtitle('x = Relative abundance estimates from assessment, 
+		\n y = Relative abundance estimates from VAST.
+		\n blue = LM, Red, slope = 1, intercept = 0'))
+		ggsave('Fidelity with assessment.png')
 
 
