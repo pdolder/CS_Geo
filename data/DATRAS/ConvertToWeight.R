@@ -129,6 +129,31 @@ HL$Wt <- (HL$SpeciesA * HL$LngtClass)^HL$SpeciesB * (HL$HLNoAtLngt * HL$SubFacto
 
 ## And aggregate across lengths
 
+# split into Ju and Ad
+
+HL$SpeciesName <- toupper(HL$SpeciesName)
+
+HL$SpeciesName <- ifelse(HL$SpeciesName == 'GADUS MORHUA' & HL$LngtClass <  34.5, paste(HL$SpeciesName,'Juv', sep = '_'), 
+ifelse(HL$SpeciesName == 'GADUS MORHUA' & HL$LngtClass >= 34.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'MELANOGRAMMUS AEGLEFINUS' & HL$LngtClass <  29.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'MELANOGRAMMUS AEGLEFINUS' & HL$LngtClass >= 29.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'MERLANGIUS MERLANGUS' & HL$LngtClass <  26.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'MERLANGIUS MERLANGUS' & HL$LngtClass >= 26.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'MERLUCCIUS MERLUCCIUS' & HL$LngtClass <  26.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'MERLUCCIUS MERLUCCIUS' & HL$LngtClass >= 26.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'POLLACHIUS VIRENS' & HL$LngtClass <  34.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'POLLACHIUS VIRENS' & HL$LngtClass >= 34.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'PLEURONECTES PLATESSA' & HL$LngtClass < 26.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'PLEURONECTES PLATESSA' & HL$LngtClass >= 26.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'SOLEA SOLEA' & HL$LngtClass < 23.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'SOLEA SOLEA' & HL$LngtClass >= 23.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'LEPIDORHOMBUS WHIFFIAGONIS' & HL$LngtClass >= 19.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+ifelse(HL$SpeciesName == 'LEPIDORHOMBUS WHIFFIAGONIS' & HL$LngtClass <  19.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'DICENTRATCHUS LABRAX' & HL$LngtClass <  35.5, paste(HL$SpeciesName,'Juv', sep = '_'),
+ifelse(HL$SpeciesName == 'DICENTRARCHUS LABRAX' & HL$LngtClass >= 35.5, paste(HL$SpeciesName,'Adu', sep = '_'),
+       paste(HL$SpeciesName,'All', sep ='_')))))))))))))))))))
+
+
 DF <- HL[!is.na(HL$Wt),]
 DF <- DF %>% group_by(Survey, Quarter, Country, Ship, Gear, StNo, HaulNo,Year, SpeciesName) %>%
 	summarise(Kg = sum(Wt)) %>% as.data.frame()
@@ -158,10 +183,11 @@ DF <- DF2[c('Survey','Ship','StNo','HaulNo','Year','SpeciesName','HaulLatMid','H
 
 # Remove marginal areas
 DF <- filter(DF, HaulLonMid < -2 & HaulLonMid > -12)
-DF <- filter(DF, HaulLatMid >  48 & HaulLatMid < 54)
+DF <- filter(DF, HaulLatMid >  48 & HaulLatMid < 52)
 
 # Save
 
-save(DF, file = file.path('..','CelticSurveyFormatted.RData'))
+# save(DF, file = file.path('..','CelticSurveyFormatted.RData'))
+save(DF, file = file.path('..','CelticSurveyFormattedSize.RData'))
 
 

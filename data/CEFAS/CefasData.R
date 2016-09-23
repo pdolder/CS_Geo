@@ -67,6 +67,7 @@ ggplot(Stations, aes(DistStand)) + geom_histogram() +
 
 StationsClean    <- group_by(Stations, fldSeriesName) %>% 
 	            summarise(median = median(DistStand),
+			      mean   = mean(DistStand),
 		    MAD = mad(DistStand, center = median(DistStand))) %>%
 		    as.data.frame()
 
@@ -209,6 +210,30 @@ FSS$SweptAreaAdj <- FSS$SweptArea * FSS$SweptAreaAdjFac
 plot(FSS$SweptAreaAdj ~ FSS$fldSeriesName)
 
 # Aggregate
+
+# split into Ju and Ad
+
+FSS$fldScientificName <- ifelse(FSS$fldScientificName == 'GADUS MORHUA' & FSS$fldLengthGroup <  34.5, paste(FSS$fldScientificName,'Juv', sep = '_'), 
+ifelse(FSS$fldScientificName == 'GADUS MORHUA' & FSS$fldLengthGroup >= 34.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'MELANOGRAMMUS AEGLEFINUS' & FSS$fldLengthGroup <  29.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'MELANOGRAMMUS AEGLEFINUS' & FSS$fldLengthGroup >= 29.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'MERLANGIUS MERLANGUS' & FSS$fldLengthGroup <  26.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'MERLANGIUS MERLANGUS' & FSS$fldLengthGroup >= 26.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'MERLUCCIUS MERLUCCIUS' & FSS$fldLengthGroup <  26.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'MERLUCCIUS MERLUCCIUS' & FSS$fldLengthGroup >= 26.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'POLLACHIUS VIRENS' & FSS$fldLengthGroup <  34.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'POLLACHIUS VIRENS' & FSS$fldLengthGroup >= 34.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'PLEURONECTES PLATESSA' & FSS$fldLengthGroup < 26.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'PLEURONECTES PLATESSA' & FSS$fldLengthGroup >= 26.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'SOLEA SOLEA' & FSS$fldLengthGroup < 23.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'SOLEA SOLEA' & FSS$fldLengthGroup >= 23.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'LEPIDORHOMBUS WHIFFIAGONIS' & FSS$fldLengthGroup >= 19.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+ifelse(FSS$fldScientificName == 'LEPIDORHOMBUS WHIFFIAGONIS' & FSS$fldLengthGroup <  19.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'DICENTRATCHUS LABRAX' & FSS$fldLengthGroup <  35.5, paste(FSS$fldScientificName,'Juv', sep = '_'),
+ifelse(FSS$fldScientificName == 'DICENTRARCHUS LABRAX' & FSS$fldLengthGroup >= 35.5, paste(FSS$fldScientificName,'Adu', sep = '_'),
+       paste(FSS$fldScientificName,'All', sep ='_')))))))))))))))))))
+
+
 FSS <- group_by(FSS, fldSeriesName, Year, fldPrimeStation, fldCruiseStationNumber, HaulLatMid, HaulLonMid, fldTowDuration, SweptArea, SweptAreaAdj, fldScientificName) %>% summarise(Kg = sum(Wt)) %>% as.data.frame()
 
 FSS <- FSS[c('fldSeriesName','Year','fldPrimeStation','fldCruiseStationNumber','HaulLatMid','HaulLonMid','fldTowDuration', 'SweptArea', 'SweptAreaAdj' ,'fldScientificName','Kg')]
@@ -216,12 +241,12 @@ FSS <- FSS[c('fldSeriesName','Year','fldPrimeStation','fldCruiseStationNumber','
 ## Trim to only keep data within core Celtic Sea
 
 FSS <- filter(FSS, HaulLonMid > -12 &  HaulLonMid < -2) # remove extreme Lons
-FSS <- filter(FSS, HaulLatMid >  48 &  HaulLatMid < 54) # remove extreme Lats
+FSS <- filter(FSS, HaulLatMid >  48 &  HaulLatMid < 52) # remove extreme Lats
 
 plot(FSS$SweptAreaAdj ~ FSS$fldSeriesName)
 boxplot(FSS$SweptAreaAdj ~ FSS$Year)
 
 
-
-save(FSS, file = file.path('..','CelticSurvey2Formatted.RData'))
+# save(FSS, file = file.path('..','CelticSurvey2Formatted.RData'))
+save(FSS, file = file.path('..','CelticSurvey2FormattedSize.RData'))
 
