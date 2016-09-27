@@ -1,5 +1,4 @@
 
 ## exclude shapefile folders
 
-**/data/Covariates/201208_EUSeaMap_Atlantic_Habitats/
-**/data/Covariates/EUNIS_broadscale_map/
+**/data/Covariates/
