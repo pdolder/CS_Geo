@@ -1,6 +1,6 @@
 
 ## exclude shapefile folders
 
-Covariates/*/
-Covariates/*/*
+**/Covariates/*/
+**/Covariates/*/*
 
