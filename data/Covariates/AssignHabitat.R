@@ -37,4 +37,12 @@ table(LLs$Level2_des)
 
 KmeanHab <- data.frame(Habitat = LLs$Level2_des)
 
-save(KmeanHab, file = 'KmeansHab.RData')
+spplot(HabMap, col.regions = rainbow(length(HabMap)), 
+sp.layout = list('sp.points', LLs, pch = 16, col = 'black'))
+
+
+spplot(HabMap)
+
+plot(HabMap, xlim = c(-12, -2), ylim = c(48, 52))
+points(x = coordinates(LLs)[,'X'], y = coordinates(LLs)[,'Y'], col = 'red', pch = '*')
+#save(KmeanHab, file = 'KmeansHab.RData')
