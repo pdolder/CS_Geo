@@ -1,0 +1,269 @@
+$par
+  ln_H_input   ln_H_input     beta1_ct   L_omega1_z L_epsilon1_z    logkappa1     beta2_ct   L_omega2_z L_epsilon2_z 
+  -0.2608464    1.7001108   -0.0656904   -1.1028046   -1.1514747   -3.9193855    2.2162045   -2.5997581   -0.9518049 
+   logkappa2    logSigmaM 
+  -1.5351934  -13.9579221 
+
+$objective
+[1] 185.0106
+
+$convergence
+[1] 1
+
+$iterations
+[1] 1
+
+$evaluations
+function gradient 
+      13        1 
+
+$message
+[1] "false convergence (8)"
+
+$run_time
+Time difference of 11.00825 secs
+
+$number_of_coefficients
+ Total  Fixed Random 
+   411     11    400 
+
+$AIC
+[1] 392.0212
+
+$diagnostics
+          Param starting_value      Lower         MLE     Upper final_gradient
+1    ln_H_input      0.0000000 -50.000000  -0.2608464 50.000000    0.019799478
+2    ln_H_input      0.0000000 -50.000000   1.7001108 50.000000   -0.019815912
+3      beta1_ct     -5.2119597 -50.000000  -0.0656904 50.000000    0.001902624
+4    L_omega1_z     -0.1296722 -50.000000  -1.1028046 50.000000   -0.002048380
+5  L_epsilon1_z     -0.1353950 -50.000000  -1.1514747 50.000000   -0.002138781
+6     logkappa1     -0.1053605  -5.081928  -3.9193855 -1.535193    0.001110989
+7      beta2_ct      3.0427081 -50.000000   2.2162045 50.000000   -0.013708297
+8    L_omega2_z     -0.8202213 -50.000000  -2.5997581 50.000000   -0.034551637
+9  L_epsilon2_z     -0.3002677 -50.000000  -0.9518049 50.000000   -0.006638318
+10    logkappa2     -0.1053605  -5.081928  -1.5351934 -1.535193   -0.570880668
+11    logSigmaM      1.6094379 -50.000000 -13.9579221 10.000000   -0.019672497
+
+$SD
+$SD$value
+  Range_raw1   Range_raw2    Index_ctl ln_Index_ctl       SigmaM       SigmaM       SigmaM 
+1.424664e+02 1.313019e+01 8.460609e+02 6.740591e+00 8.672643e-07 2.000000e+00 5.000000e+00 
+
+$SD$sd
+[1] 70.3232723  5.5700910 85.6688217  0.1012561        NaN  0.0000000  0.0000000
+
+$SD$cov
+              [,1]          [,2]          [,3]          [,4]          [,5] [,6] [,7]
+[1,]  4.945363e+03 -1.436978e+01 -7.094539e+02 -8.385377e-01  3.854439e-07    0    0
+[2,] -1.436978e+01  3.102591e+01  3.633224e+01  4.294281e-02  3.064746e-09    0    0
+[3,] -7.094539e+02  3.633224e+01  7.339147e+03  8.674490e+00 -1.576693e-07    0    0
+[4,] -8.385377e-01  4.294281e-02  8.674490e+00  1.025280e-02 -1.863569e-10    0    0
+[5,]  3.854439e-07  3.064746e-09 -1.576693e-07 -1.863569e-10 -1.008811e-15    0    0
+[6,]  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00    0    0
+[7,]  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00    0    0
+
+$SD$par.fixed
+  ln_H_input   ln_H_input     beta1_ct   L_omega1_z L_epsilon1_z    logkappa1     beta2_ct   L_omega2_z L_epsilon2_z 
+  -0.2608464    1.7001108   -0.0656904   -1.1028046   -1.1514747   -3.9193855    2.2162045   -2.5997581   -0.9518049 
+   logkappa2    logSigmaM 
+  -1.5351934  -13.9579221 
+
+$SD$cov.fixed
+              ln_H_input  ln_H_input      beta1_ct   L_omega1_z L_epsilon1_z     logkappa1     beta2_ct    L_omega2_z
+ln_H_input    0.47580504  0.93628159 -0.0319912875 -0.032887326 -0.034338735 -0.0290883578  0.029916369 -0.5592005125
+ln_H_input    0.93628159  2.46793607 -0.1158150210 -0.174052522 -0.181734015 -0.0319402357  0.005445640 -1.5748914708
+beta1_ct     -0.03199129 -0.11581502  0.8428271771  0.012806281  0.013371462  0.0342546610  0.002503260  0.0776982030
+L_omega1_z   -0.03288733 -0.17405252  0.0128062807  3.725589886 -2.948990955 -0.1180178533  0.007270055  0.1215903379
+L_epsilon1_z -0.03433873 -0.18173402  0.0133714620 -2.948990955  3.470795337 -0.1232264639  0.007590909  0.1269565118
+logkappa1    -0.02908836 -0.03194024  0.0342546610 -0.118017853 -0.123226464  0.2436537933 -0.003989607  0.0149956924
+beta2_ct      0.02991637  0.00544564  0.0025032602  0.007270055  0.007590909 -0.0039896072  0.033700711  0.0449302168
+L_omega2_z   -0.55920051 -1.57489147  0.0776982030  0.121590338  0.126956512  0.0149956924  0.044930217  1.0226562582
+L_epsilon2_z -0.12839699 -0.46880586  0.0268992721  0.046655249  0.048714300 -0.0008924144 -0.036662792  0.4897808062
+logkappa2     0.22627535  0.59735873 -0.0280674170 -0.042225138 -0.044088668 -0.0076818651 -0.010271310 -0.3845874642
+logSigmaM     0.03513844  0.04512669 -0.0003328345  0.001769388  0.001847478 -0.0031195880 -0.002967628 -0.0006628735
+              L_epsilon2_z     logkappa2     logSigmaM
+ln_H_input   -0.1283969884  0.2262753483  0.0351384400
+ln_H_input   -0.4688058593  0.5973587324  0.0451266935
+beta1_ct      0.0268992721 -0.0280674170 -0.0003328345
+L_omega1_z    0.0466552493 -0.0422251383  0.0017693875
+L_epsilon1_z  0.0487142997 -0.0440886685  0.0018474782
+logkappa1    -0.0008924144 -0.0076818651 -0.0031195880
+beta2_ct     -0.0366627923 -0.0102713105 -0.0029676280
+L_omega2_z    0.4897808062 -0.3845874642 -0.0006628735
+L_epsilon2_z -0.0974665356 -0.1868733583 -0.0093677052
+logkappa2    -0.1868733583  0.1799627126 -0.0002691361
+logSigmaM    -0.0093677052 -0.0002691361 -0.0013412416
+
+$SD$pdHess
+[1] FALSE
+
+$SD$gradient.fixed
+ [1]  0.019799478 -0.019815912  0.001902624 -0.002048380 -0.002138781  0.001110989 -0.013708297 -0.034551637 -0.006638318
+[10] -0.570880668 -0.019672497
+
+$SD$par.random
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -2.897299e+00     -2.376251e+00     -4.856704e-01      6.257311e+00     -5.002799e+00      6.176352e-01      5.211975e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+     4.321502e+00      9.027747e+00     -3.813236e+00     -1.002879e+01     -5.626504e+00      6.396868e+00      3.273942e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -4.917736e+00     -1.097014e+01     -5.744377e+00     -5.923077e+00      9.656984e+00     -9.436749e+00      2.094092e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+     5.147349e+00     -8.873658e+00     -1.147016e+01      6.005155e+00      5.012590e+00      5.608847e+00      4.006778e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -1.056122e+01     -9.778523e+00     -1.057618e+01      3.874866e+00     -1.551603e+00     -1.050175e+01     -9.916858e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -1.058027e+01      7.016460e+00      5.962792e+00     -7.379495e+00      6.288301e-01     -1.059280e+01      2.054958e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+     5.161802e+00     -3.804703e+00     -9.237528e+00      4.433497e+00     -1.021207e+01     -6.771270e+00     -5.762346e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -7.420949e+00     -1.094696e+00     -4.257974e+00     -5.724406e+00      1.523997e+00      1.832105e+00     -9.804128e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+     5.421207e+00      3.358064e+00     -8.518402e+00      2.797112e+00     -1.053722e+01      4.187677e+00      2.269545e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -1.026712e+01     -1.052089e+01     -1.017903e+01     -2.892759e+00      5.465699e+00     -4.230335e+00     -9.046857e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -6.398142e+00     -9.667631e+00     -2.191725e+00      1.993379e+00      4.805404e+00      5.301688e+00      4.799035e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+     6.391891e+00      6.946588e+00      3.341703e+00      3.421850e+00     -7.342509e+00      7.694957e+00     -8.237029e+00 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+    -1.367561e+00     -1.726139e+01      1.066904e+01      1.169579e+01      1.193030e+01      1.180814e+01      1.152489e+01 
+   Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf    Omegainput1_sf 
+     5.464539e+00     -5.470042e+00      7.551788e+00      6.777075e+00      6.428072e+00      6.269805e+00      6.397339e+00 
+   Omegainput1_sf    Omegainput1_sf Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     7.290850e+00      2.637235e+00     -3.025166e+00     -2.481122e+00     -5.071045e-01      6.533465e+00     -5.223588e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     6.448933e-01      5.441995e+00      4.512223e+00      9.426169e+00     -3.981526e+00     -1.047139e+01     -5.874819e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     6.679181e+00      3.418431e+00     -5.134770e+00     -1.145429e+01     -5.997894e+00     -6.184481e+00      1.008318e+01 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+    -9.853221e+00      2.186510e+00      5.374517e+00     -9.265279e+00     -1.197637e+01      6.270181e+00      5.233810e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     5.856382e+00      4.183609e+00     -1.102732e+01     -1.021008e+01     -1.104294e+01      4.045876e+00     -1.620080e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+    -1.096523e+01     -1.035452e+01     -1.104720e+01      7.326118e+00      6.225948e+00     -7.705174e+00      6.565823e-01 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+    -1.106030e+01      2.145649e+00      5.389608e+00     -3.972616e+00     -9.645208e+00      4.629161e+00     -1.066276e+01 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+    -7.070106e+00     -6.016656e+00     -7.748458e+00     -1.143008e+00     -4.445891e+00     -5.977041e+00      1.591255e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     1.912961e+00     -1.023681e+01      5.660462e+00      3.506265e+00     -8.894345e+00      2.920557e+00     -1.100226e+01 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     4.372491e+00      2.369707e+00     -1.072024e+01     -1.098521e+01     -1.062826e+01     -3.020425e+00      5.706917e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+    -4.417032e+00     -9.446122e+00     -6.680511e+00     -1.009429e+01     -2.288453e+00      2.081353e+00      5.017480e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     5.535667e+00      5.010831e+00      6.673984e+00      7.253161e+00      3.489182e+00      3.572867e+00     -7.666556e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     8.034559e+00     -8.600553e+00     -1.427916e+00     -1.802319e+01      1.113990e+01      1.221196e+01      1.245682e+01 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft 
+     1.232927e+01      1.203352e+01      5.705705e+00     -5.711452e+00      7.885071e+00      7.076168e+00      6.711762e+00 
+Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft Epsiloninput1_sft    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     6.546511e+00      6.679673e+00      7.612617e+00      2.753624e+00      5.252938e-02     -5.224189e-01      1.300122e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     4.151823e-02      7.342613e-02     -3.446265e-01      2.602938e-01      4.237049e-01      2.311686e-03      4.800161e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+    -3.138722e-01      1.066332e-01      1.563365e-03      1.761540e-01     -5.730834e-01     -3.427276e-01     -8.901306e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     7.599986e-01     -9.406497e-04     -4.416969e-01      1.420370e-01      8.093622e-02     -8.945075e-01     -1.043269e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     2.010348e-01      8.089146e-02      1.995486e-02      2.115439e-01     -1.138792e+00     -6.031472e-01      7.424258e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+    -9.201960e-02      1.163911e-01     -6.631345e-01     -9.824771e-01     -7.674208e-01      3.793699e-03      9.972111e-02 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+    -2.938371e-01      6.603068e-01     -5.478409e-01     -1.191847e-02      5.542539e-02      2.779084e-02     -1.536041e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     5.856774e-01     -1.370309e-01     -4.149957e-01     -4.383346e-01      6.320121e-01      1.233999e-01      6.498310e-02 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+    -4.967150e-01      1.303487e-01      6.398470e-02     -3.238281e-01      9.181269e-02      6.291449e-02      5.039592e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     3.574702e-02      6.264209e-01      6.292543e-02     -1.002619e-02     -5.788152e-01     -4.657279e-01     -1.223860e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     4.201011e-01      7.615951e-02      3.118770e-01      5.553781e-01     -6.572204e-01     -4.513039e-01     -3.025057e-01 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     4.104894e-01      7.041459e-02      7.070818e-01      3.135362e-01      5.231095e-02      5.543384e-03      4.393565e-02 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+     5.488740e-02     -1.956644e-01      1.541712e-02     -1.363673e-01      2.570577e-02     -2.582538e-02     -8.397303e-03 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf 
+    -4.568431e-04      1.564961e-05      2.073442e-04      9.163801e-04     -3.893757e-02      1.024808e-02      9.413882e-03 
+   Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf    Omegainput2_sf Epsiloninput2_sft 
+     1.816344e-03      2.554343e-04     -8.071870e-05     -1.073689e-04      5.772346e-03      1.077062e-02      1.923168e-02 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -1.912643e-01      4.759915e-02      1.520036e-02      2.688225e-02     -1.261722e-01      9.529690e-02      1.551238e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     8.463380e-04      1.757401e-01     -1.149126e-01      3.903978e-02      5.723681e-04      6.449225e-02     -2.098132e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -1.254770e-01     -3.258883e-01      2.782453e-01     -3.443840e-04     -1.617109e-01      5.200158e-02      2.963179e-02 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -3.274907e-01     -3.819544e-02      7.360142e-02      2.961541e-02      7.305730e-03      7.744893e-02     -4.169265e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -2.208200e-01      2.718117e-01     -3.368956e-02      4.261227e-02     -2.427821e-01     -3.596975e-01     -2.809626e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     1.388922e-03      3.650918e-02     -1.075775e-01      2.417468e-01     -2.005716e-01     -4.363504e-03      2.029195e-02 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     1.017459e-02     -5.623642e-02      2.144240e-01     -5.016877e-02     -1.519353e-01     -1.604799e-01      2.313878e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     4.517831e-02      2.379115e-02     -1.818538e-01      4.772235e-02      2.342562e-02     -1.185576e-01      3.361381e-02 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     2.303381e-02      1.845060e-01      1.308744e-02      2.293408e-01      2.303781e-02     -3.670719e-03     -2.119117e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -1.705090e-01     -4.480709e-02      1.538044e-01      2.788298e-02      1.141822e-01      2.033311e-01     -2.406169e-01 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -1.652282e-01     -1.107512e-01      1.502854e-01      2.577969e-02      2.588717e-01      1.147896e-01      1.915171e-02 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     2.029504e-03      1.608541e-02      2.009499e-02     -7.163525e-02      5.644405e-03     -4.992582e-02      9.411213e-03 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+    -9.455004e-03     -3.074361e-03     -1.672561e-04      5.729524e-06      7.591137e-05      3.354986e-04     -1.425555e-02 
+Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft Epsiloninput2_sft 
+     3.751953e-03      3.446544e-03      6.649868e-04      9.351779e-05     -2.955216e-05     -3.930912e-05      2.113330e-03 
+Epsiloninput2_sft 
+     3.943261e-03 
+
+$SD$diag.cov.random
+  [1] 1.455771e+02 1.489347e+02 1.262571e+02 3.083893e+02 2.497023e+02 1.684781e+02 2.080981e+02 1.586106e+02 4.920874e+02
+ [10] 1.588168e+02 5.142341e+02 2.150205e+02 2.831695e+02 1.497421e+02 2.077206e+02 5.248568e+02 2.348261e+02 2.527388e+02
+ [19] 5.570146e+02 4.144720e+02 1.536647e+02 2.266069e+02 3.800566e+02 6.083090e+02 2.753675e+02 1.887836e+02 2.145416e+02
+ [28] 1.559484e+02 4.959270e+02 4.274784e+02 5.056916e+02 2.196262e+02 1.407610e+02 4.887985e+02 4.727946e+02 4.804419e+02
+ [37] 3.444887e+02 2.600460e+02 3.556719e+02 1.725833e+02 5.155638e+02 1.376581e+02 2.613037e+02 1.793644e+02 3.904083e+02
+ [46] 1.679655e+02 4.604685e+02 2.801925e+02 2.273730e+02 3.100195e+02 9.399396e+01 1.680173e+02 2.245198e+02 2.066511e+02
+ [55] 1.209782e+02 4.401439e+02 2.200262e+02 1.163076e+02 3.652374e+02 1.050706e+02 4.853779e+02 1.454498e+02 1.364553e+02
+ [64] 4.696639e+02 4.852522e+02 4.708744e+02 1.457875e+02 2.210413e+02 1.676028e+02 4.156502e+02 2.905048e+02 4.263869e+02
+ [73] 1.529390e+02 1.000373e+02 1.737590e+02 2.235269e+02 1.916909e+02 3.036300e+02 3.856927e+02 1.214030e+02 1.516558e+02
+ [82] 2.789502e+02 4.167659e+02 4.041741e+02 2.207431e+02 1.232688e+03 6.691057e+02 1.402218e+03 1.524869e+03 1.352478e+03
+ [91] 1.050263e+03 4.044052e+02 3.162075e+02 4.630622e+02 5.616441e+02 6.819435e+02 7.196811e+02 5.781524e+02 4.110405e+02
+[100] 2.552435e+02 1.422649e+02 1.443819e+02 1.224716e+02 2.940947e+02 2.464445e+02 1.634959e+02 2.012979e+02 1.540127e+02
+[109] 4.667473e+02 1.561524e+02 4.960237e+02 2.074250e+02 2.726609e+02 1.450894e+02 2.006914e+02 4.997099e+02 2.261584e+02
+[118] 2.429525e+02 5.302381e+02 3.954667e+02 1.481723e+02 2.201720e+02 3.624052e+02 5.830441e+02 2.658781e+02 1.825260e+02
+[127] 2.067022e+02 1.509940e+02 4.717791e+02 4.085703e+02 4.835972e+02 2.103258e+02 1.366501e+02 4.672419e+02 4.529757e+02
+[136] 4.563406e+02 3.312677e+02 2.507730e+02 3.468636e+02 1.676210e+02 4.904525e+02 1.345087e+02 2.493164e+02 1.767241e+02
+[145] 3.717561e+02 1.631476e+02 4.380904e+02 2.709293e+02 2.189326e+02 2.984336e+02 9.380216e+01 1.640630e+02 2.175126e+02
+[154] 2.007527e+02 1.199615e+02 4.192041e+02 2.125067e+02 1.134410e+02 3.493623e+02 1.030451e+02 4.614636e+02 1.410770e+02
+[163] 1.345608e+02 4.482314e+02 4.620526e+02 4.488731e+02 1.412103e+02 2.134118e+02 1.620297e+02 3.981666e+02 2.831869e+02
+[172] 4.078425e+02 1.489597e+02 9.877744e+01 1.678538e+02 2.165987e+02 1.860628e+02 2.930560e+02 3.735730e+02 1.185464e+02
+[181] 1.478438e+02 2.675425e+02 3.957606e+02 3.928886e+02 2.169416e+02 1.174501e+03 6.390605e+02 1.376585e+03 1.498525e+03
+[190] 1.324803e+03 1.020572e+03 3.891932e+02 3.124862e+02 4.502406e+02 5.518225e+02 6.733935e+02 7.114406e+02 5.676631e+02
+[199] 3.961651e+02 2.489855e+02 3.940800e-01 2.219822e-01 4.872554e-02 3.012660e-01 2.909524e-01 9.915388e-02 3.796882e-01
+[208] 1.593282e-01 2.812675e-01 1.787088e-01 1.160099e-01 9.018619e-02 1.006794e-01 2.202544e-01 6.120994e-01 1.245553e-01
+[217] 5.687991e-01 4.520407e-01 2.622650e-01 1.768744e-01 1.790429e-01 5.807915e-02 5.684249e-01 3.709190e-02 7.125655e-02
+[226] 3.241689e-01 3.763016e-01 6.919002e-02 8.813841e-01 2.585523e-01 4.304143e-01 3.856921e-01 5.919231e-02 3.257677e-01
+[235] 6.722592e-01 4.473181e-01 1.362163e-01 3.299345e-01 6.002588e-01 3.222523e-01 2.286605e-01 3.610523e-01 4.080664e-01
+[244] 2.705436e-01 6.389022e-02 2.930140e-01 7.984134e-02 1.419938e-01 1.791401e-01 3.373511e-01 2.319618e-01 3.473227e-01
+[253] 2.255368e-01 1.806567e-01 4.642966e-01 1.189873e-01 3.380955e-01 1.851585e-01 2.223400e-01 7.384915e-02 3.045429e-01
+[262] 3.042100e-01 4.695873e-01 2.740645e-01 1.959287e-01 6.315846e-02 1.426079e-01 2.888033e-01 1.166805e-01 2.516464e-01
+[271] 3.272442e-01 5.624474e-01 1.092274e-01 1.686075e-01 2.734413e-01 3.894597e-01 9.303709e-02 1.774456e-01 1.901070e-01
+[280] 4.364423e-01 2.678631e-01 3.810075e-02 3.965504e-01 4.118015e-01 8.516334e-01 9.339873e-02 8.704963e-02 4.095048e-01
+[289] 6.661988e-01 7.097748e-01 6.187004e-01 2.285804e-01 4.687949e-02 1.086339e-01 7.195961e-01 6.806655e-01 6.033954e-01
+[298] 1.795869e-01 1.619036e-01 2.113807e-01 4.114923e-01 3.343979e-01 2.218971e-01 3.045026e-01 2.873372e-01 1.472586e-01
+[307] 3.576584e-01 2.360232e-01 2.812857e-01 1.300786e-01 3.682290e-01 5.599292e-01 1.015715e-01 2.182845e-01 4.420476e-01
+[316] 3.430876e-01 4.457831e-01 4.685657e-01 2.622647e-01 3.668469e-01 2.131268e-01 5.677991e-02 4.052083e-01 1.845402e-01
+[325] 2.702281e-01 3.226085e-01 3.761636e-01 2.329885e-01 3.625001e-01 1.756814e-01 4.352921e-01 3.885193e-01 3.173669e-01
+[334] 3.155970e-01 3.912177e-01 5.099405e-01 1.361904e-01 3.599334e-01 5.434103e-01 1.923452e-01 2.551766e-01 3.702177e-01
+[343] 4.103192e-01 2.729821e-01 3.272593e-01 4.299014e-01 4.681133e-01 2.147944e-01 3.976275e-01 4.841097e-01 2.279691e-01
+[352] 4.026581e-01 4.853078e-01 1.697293e-01 4.673323e-01 3.606310e-01 3.367677e-01 1.839873e-01 3.395700e-01 7.299384e-02
+[361] 2.738491e-01 3.023613e-01 4.707536e-01 4.278896e-01 4.057683e-01 3.607742e-01 1.263511e-01 2.848871e-01 3.249032e-01
+[370] 2.903851e-01 3.628721e-01 5.035940e-01 3.503617e-01 3.595960e-01 2.862615e-01 3.806139e-01 1.433575e-01 1.763371e-01
+[379] 1.900677e-01 4.358672e-01 2.704132e-01 6.760268e-02 3.966040e-01 4.509790e-01 8.509194e-01 9.306036e-02 8.711794e-02
+[388] 4.095047e-01 6.661988e-01 7.097748e-01 6.187005e-01 2.287713e-01 4.682541e-02 1.085544e-01 7.195917e-01 6.806655e-01
+[397] 6.033954e-01 1.795867e-01 1.620924e-01 2.112448e-01
+
+

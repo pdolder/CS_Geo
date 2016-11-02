@@ -17,36 +17,38 @@ library(TMB)
 library(ThorsonUtilities)
 library(VAST)
 
-# This is where all runs will be located
-DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
-  dir.create(DateFile)
+run <- 'RUNXX'
 
-###############
+# This is where all runs will be located
+DateFile <- file.path(getwd(),paste(Sys.Date(),'_',run,'/', sep = ""))
+dir.create(DateFile)
+
+##############
 # Settings
 ###############
 
   Version = "VAST_v1_8_0"
   Method = c("Grid", "Mesh")[2]
-  grid_size_km = 20 
+  #grid_size_km = 20 
   n_x = c(100, 250, 500, 1000, 2000)[1] # Number of stations
   FieldConfig = c("Omega1"=6, "Epsilon1"=6, "Omega2"=6, "Epsilon2"=6) # 1=Presence-absence; 2=Density given presence; #Epsilon=Spatio-temporal; #Omega=Spatial
   RhoConfig = c("Beta1"=0, "Beta2"=0, "Epsilon1"=0, "Epsilon2"=0) # Structure for beta or epsilon over time: 0=None (default); 1=WhiteNoise; 2=RandomWalk; 3=Constant
-  VesselConfig = c("Vessel"=0, "VesselYear"=1)
   ObsModel = c(2,0)  # 0=normal (log-link); 1=lognormal; 2=gamma; 4=ZANB; 5=ZINB; 11=lognormal-mixture; 12=gamma-mixture
-  OverdispersionConfig = c("eta1" = 6,"eta2" = 6)
+  OverdispersionConfig = c("eta1" = 6,"eta2" = 6) # 0 - number of factors
   Kmeans_Config = list( "randomseed"=1, "nstart"=100, "iter.max"=1e3 )     # Samples: Do K-means on trawl locs; Domain: Do K-means on extrapolation grid
   BiasCorr = FALSE 
 
   # Determine region
   Region = "Celtic_Sea"
   Catch_units <- 'Kg'
+  max_dist <- 50
 
 
   # Decide on strata for use when calculating indices
   strata.limits <- data.frame('STRATA'="All_areas")
 
   # Save options for future records
-  Record = ThorsonUtilities::bundlelist( c("Version","Method","grid_size_km","n_x","FieldConfig","RhoConfig","VesselConfig","ObsModel", "OverdispersionConfig", "Kmeans_Config","Catch_units","BiasCorr","Region","strata.limits") )
+  Record = ThorsonUtilities::bundlelist( c("Version","Method","n_x","FieldConfig","RhoConfig", "ObsModel", "OverdispersionConfig", "Kmeans_Config","Catch_units","BiasCorr","Region","strata.limits") )
   capture.output( Record, file=paste0(DateFile,"Record.txt"))
   save(Record, file=paste0(DateFile,"Record.RData"))
 
@@ -103,8 +105,8 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
   colnames(DF)[7] <- 'spp'
 
   DF$SpeciesName <- factor(DF$spp) # drop empty factors
-  DF$Ship        <- as.factor(DF$Survey)
-  DF$Year        <- as.factor(DF$Year)
+  DF$Ship        <- factor(DF$Survey)
+  DF$Year        <- factor(DF$Year)
 
   # Remove some surveys
   # DF <- DF[DF$Survey %in% c('CEXP','THA2','WCGFS','Q1SWIBTS','Q1SWBEAM'),]
@@ -117,13 +119,12 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
 		       "Vessel"= DF[,'Ship'] ,
 		       "Lat"=DF[,"Lat"], 
 		       "Lon"=DF[,"Lon"] )
-  save(Data_Geostat, file=paste0(DateFile,"Data_Geostat.RData"))
-
+  
   # Get extrapolation data
-  Extrapolation_List = SpatialDeltaGLMM::Prepare_Extrapolation_Data_Fn( Region=Region, strata.limits=strata.limits, observations_LL=Data_Geostat[,c('Lat','Lon')], maximum_distance_from_sample = 10)
+  Extrapolation_List = SpatialDeltaGLMM::Prepare_Extrapolation_Data_Fn( Region=Region, strata.limits=strata.limits, observations_LL=Data_Geostat[,c('Lat','Lon')], maximum_distance_from_sample = max_dist)
 
   # Calculate spatial information for SPDE mesh, strata areas, and AR1 process
-  Spatial_List = SpatialDeltaGLMM::Spatial_Information_Fn( grid_size_km=grid_size_km, n_x=n_x, Method=Method, Lon=Data_Geostat[,'Lon'], Lat=Data_Geostat[,'Lat'], Extrapolation_List=Extrapolation_List, randomseed=Kmeans_Config[["randomseed"]], nstart=Kmeans_Config[["nstart"]], iter.max=Kmeans_Config[["iter.max"]], DirPath=DateFile )
+  Spatial_List = SpatialDeltaGLMM::Spatial_Information_Fn(n_x=n_x, Method=Method, Lon=Data_Geostat[,'Lon'], Lat=Data_Geostat[,'Lat'], Extrapolation_List=Extrapolation_List, randomseed=Kmeans_Config[["randomseed"]], nstart=Kmeans_Config[["nstart"]], iter.max=Kmeans_Config[["iter.max"]], DirPath=DateFile )
   Data_Geostat = cbind( Data_Geostat, Spatial_List$loc_UTM, "knot_i"=Spatial_List$knot_i )
 
 ################
@@ -144,8 +145,8 @@ DateFile = paste(getwd(),'/',Sys.Date(),'CelticSeaSurvey/',sep='')
   Report = Obj$report()
 
   # Save stuff
-Save = list("Opt"=Opt, "Report"=Report, "ParHat"=Obj$env$parList(Opt$par), "TmbData"=TmbData)
-  save(Save, file=paste0(DateFile,"Save.RData"))
+Save = list(Obj = Obj,"Opt"=Opt, "Report"=Report, "ParHat"=Obj$env$parList(Opt$par), "TmbData"=TmbData, "Data_Geostat" = Data_Geostat)
+ save(Save, file=paste0(DateFile,"Save.RData"))
 
 ################
 # Make diagnostic plots
